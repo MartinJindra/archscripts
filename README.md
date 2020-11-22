@@ -23,4 +23,10 @@ And in the end, it will ask the user
 
 **update-mirrors** will updated the `/etc/pacman.d/mirrorlist` for mirrors.
 
-**WARNING: Before using the update-mirror script please backup your `/etc/pacman.d/mirrorlist` with `sudo cp /etc/pacman.d/mirrorlist.bak`.**
+It should be executed with `sudo` and if done so, it will asks how many mirrors it should write to `/etc/pacman.d/mirrorlist`. It will test all mirrors from the standard configuration, these configs are
+
++ `https` mirrors
++ IP-Version 4
++ active mirror status
+
+**WARNING: Before using the update-mirror script please backup your `/etc/pacman.d/mirrorlist` with `sudo cp /etc/pacman.d/mirrorlist.bak`, because the script will overwrite the file.**
