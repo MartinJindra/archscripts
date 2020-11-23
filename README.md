@@ -4,7 +4,7 @@
 
 ## update-arch
 
-**update-arch** is a script that can be used to update archlinux. It's goal is that the system is only updated once per week to reduce the temptation of frequent updates.
+**update-arch.sh** is a script that can be used to update archlinux. It's goal is that the system is only updated once per week to reduce the temptation of frequent updates.
 
 If executed and it is not Sunday it will just cache the new packages with `pacman -Syuw`. When it is the end of week then it will update the whole system this includes updates for
 
@@ -21,7 +21,7 @@ And in the end, it will ask the user
 
 ## update-mirrors
 
-**update-mirrors** will updated the `/etc/pacman.d/mirrorlist` for mirrors.
+**update-mirrors.sh** will updated the `/etc/pacman.d/mirrorlist` for mirrors.
 
 It should be executed with `sudo` and if done so, it will asks how many mirrors it should write to `/etc/pacman.d/mirrorlist`. It will test all mirrors from the standard configuration, these configs are
 
