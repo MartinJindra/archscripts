@@ -1,6 +1,6 @@
 # archscripts
 
-**archscripts** is my project to make Archlinux management a little bit easier.
+**archscripts** is my project to make archlinux management a little bit easier.
 
 ## update-arch
 
