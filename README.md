@@ -28,5 +28,3 @@ It should be executed with `sudo` and if done so, it will asks how many mirrors 
 + https mirrors
 + IP-Version 4
 + active mirror status
-
-**WARNING: Before using the update-mirror script please backup your `/etc/pacman.d/mirrorlist` with `sudo cp /etc/pacman.d/mirrorlist.bak`, because the script will overwrite the file.**
