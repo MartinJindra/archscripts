@@ -46,6 +46,7 @@ if [ $day == 7 ]; then
 		# clear packages if paccache is installed
 		if command -V paccache &> /dev/null;
 		then
+			paccache -d
 			read -p 'Want to clean pacman cache? (y/N) ' choice_cache
 			choice_cache=${choice_cache,,}
 			if [[ $choice_cache == 'y' ]]; 
