@@ -65,10 +65,11 @@ if [ $day == 7 ]; then
 			fi
 		fi
 		read -p 'Want to remove orphaned packages? (y/N) ' choice_orphend
-		choice_orphend=${choice_orphend,,}
-		pacman -Qtdq
+		choice_orphend=${choice_orphend,,}	
 		if [[ $choice_orphend == 'y' ]];
 		then
+			echo "Packages to clean"
+			pacman -Qtdq
 			sudo pacman -Rsn $(pacman -Qtdq)
 		fi
 	fi
