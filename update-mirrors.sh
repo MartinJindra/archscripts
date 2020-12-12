@@ -20,6 +20,11 @@ else
 		then
 			cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
 		fi
-		curl -s "https://www.archlinux.org/mirrorlist/?country=all&protocol=https&ip_version=4&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n $mirrors - > $mirrorlist
+		if command -V rankmirrors &> /dev/null;
+		then
+			curl -s "https://www.archlinux.org/mirrorlist/?country=all&protocol=https&ip_version=4&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n $mirrors - > $mirrorlist
+		else
+			echo 'command rankmirrors is not installed'
+		fi
 	fi
 fi

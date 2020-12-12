@@ -28,3 +28,11 @@ It should be executed with `sudo` and if done so, it will asks how many mirrors 
 + https mirrors
 + IP-Version 4
 + active mirror status
+
+### Requirements
+
+Before executing the `update-mirror.sh` script please, insure that the package `pacman-contrib` is installed. To install the package, execute
+
+```bash
+sudo pacman -S pacman-contrib
+```
