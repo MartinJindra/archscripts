@@ -1,9 +1,9 @@
 #!/bin/bash
 # save current week day 
 day=$(date '+%u')
-# if today is Sunday then update
+# if today is Friday then update
 # if not just cache the updates
-if [ $day == 7 ]; then
+if [ $day == 5 ]; then
 	read -p 'Want to update the system? (y/N) ' choice_update
 	choice_update=${choice_update,,}
 	# update system if user chooses to
