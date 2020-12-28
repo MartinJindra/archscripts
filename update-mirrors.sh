@@ -12,17 +12,17 @@ else
 		echo Aborting
 	elif [[ $mirrors -gt -1 ]];
 	then
-		if [[ -f "$mirrorlistbak" ]];
+		if [[ -f $mirrorlistbak ]];
 		then
-			rm /etc/pacman.d/mirrorlist.bak
+			rm $mirrorlistbak
 		fi 
-		if [[ -f "$mirrorlist" ]];
+		if [[ -f $mirrorlist ]];
 		then
-			cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
+			cp $mirrorlist $mirrorlistbak
 		fi
 		if command -V rankmirrors &> /dev/null;
 		then
-			curl -s "https://www.archlinux.org/mirrorlist/?country=all&protocol=https&ip_version=4&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n $mirrors - > $mirrorlist
+			curl -s 'https://archlinux.org/mirrorlist/?country=all&protocol=https&ip_version=4' | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n $mirrors - > $mirrorlist
 		else
 			echo 'command rankmirrors is not installed'
 		fi
