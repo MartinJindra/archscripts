@@ -19,7 +19,7 @@ if [ $day == 5 ]; then
 		elif command -V pamac &> /dev/null;
 		then
 			echo Updating Packages
-			sudo pamac update
+			sudo pamac update -a
 		# use trizen to upgrade packages if installed
 		elif command -V trizen &> /dev/null;
 		then
