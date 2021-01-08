@@ -6,7 +6,7 @@
 
 **update-arch.sh** is a script that can be used to update archlinux. It's goal is that the system is only updated once per week to reduce the temptation of frequent updates.
 
-If executed and it is not Sunday it will just cache the new packages with `pacman -Syuw`. When it is the end of week then it will update the whole system this includes updates for
+If executed and it is not Friday it will just cache the new packages with `pacman -Syuw`. When it is the end of week then it will update the whole system this includes updates for
 
 + packages from the synced repositories
 + packages from the AUR using `yay`, `trizen` or `pamac`
