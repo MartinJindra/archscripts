@@ -64,9 +64,8 @@ if [ $day == 5 ]; then
 				yay -Yc
 			fi
 		fi
-		packages_orphaned=$(pacman -Qtdq)
 		# checks if orphan packages exists
-		if [[ "echo $packages_orphaned | wc -l" -eq 0 ]];
+		if [[ "pacman -Qtdq | wc -l" -eq 0 ]];
 		then
 			echo "No orphans packages were found"
 		else
@@ -75,7 +74,7 @@ if [ $day == 5 ]; then
 			choice_orphend=${choice_orphend,,}	
 			if [[ $choice_orphend == 'y' ]];
 			then
-				sudo pacman -Rsn $packages_orphaned
+				sudo pacman -Rsn $(pacman -Qtdq)
 			fi
 		fi
 	fi
