@@ -64,13 +64,19 @@ if [ $day == 5 ]; then
 				yay -Yc
 			fi
 		fi
-		echo "Packages to clean:"
-		pacman -Qtdq
-		read -p 'Want to remove orphaned packages? (y/N) ' choice_orphend
-		choice_orphend=${choice_orphend,,}	
-		if [[ $choice_orphend == 'y' ]];
+		packages_orphaned=$(pacman -Qtdq)
+		# checks if orphan packages exists
+		if [[ "echo $packages_orphaned | wc -l" -eq 0 ]];
 		then
-			sudo pacman -Rsn $(pacman -Qtdq)
+			echo "No orphans packages were found"
+		else
+			echo "Packages to clean:"
+			read -p 'Want to remove orphaned packages? (y/N) ' choice_orphend
+			choice_orphend=${choice_orphend,,}	
+			if [[ $choice_orphend == 'y' ]];
+			then
+				sudo pacman -Rsn $packages_orphaned
+			fi
 		fi
 	fi
 else
