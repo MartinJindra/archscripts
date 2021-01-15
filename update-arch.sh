@@ -26,22 +26,22 @@ if [ $day == 5 ]; then
 			echo Updating Packages
 			trizen -Syu
 		# use pacman to upgrade packages if installed
-		elif ! command -V pacman &> /dev/null;
+		elif command -V pacman &> /dev/null;
 		then
 			echo Updating Packages
 			sudo pacman -Syu
 		fi
 		# update flatpaks if installed
-		if ! command -V flatpak &> /dev/null;
+		if command -V flatpak &> /dev/null;
 		then
 			echo Updating Flatpaks
 			flatpak update
 		fi
 		# update snaps if installed
-		if ! command -V snap &> /dev/null;
+		if command -V snap &> /dev/null;
 		then
 			echo Updating Snaps
-			snap refresh
+			sudo snap refresh
 		fi
 		# clear packages if paccache is installed
 		if command -V paccache &> /dev/null;
