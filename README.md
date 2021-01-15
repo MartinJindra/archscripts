@@ -23,7 +23,7 @@ And in the end, it will ask the user
 
 **update-mirrors.sh** will updated the `/etc/pacman.d/mirrorlist` for mirrors.
 
-It should be executed with `sudo` and if done so, it will asks how many mirrors it should write to `/etc/pacman.d/mirrorlist`. It will test all mirrors from the standard configuration, these configs are
+It should be executed with `sudo` and if done so, it will asks how many mirrors it should write to `/etc/pacman.d/mirrorlist`. It will test all mirrors from the default configuration, these configs are
 
 + https mirrors
 + IP-Version 4
