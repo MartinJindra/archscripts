@@ -29,6 +29,15 @@ It should be executed with `sudo` and if done so, it will asks how many mirrors 
 + IP-Version 4
 + active mirror status
 
+### Ad scripts to path
+I generally prefer to use links to the scripts instead of copying them to `PATH`-directories.
+```bash
+chmod +x update-arch.sh
+chmod +x update-mirrors.sh
+sudo ln update-system.sh /usr/bin/update-system
+sudo ln update-mirrors.sh /usr/bin/update-mirrors
+```
+
 ### Requirements
 
 #### For `update-mirror`
