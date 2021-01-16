@@ -4,7 +4,7 @@
 
 ## update-arch
 
-**update-arch.sh** is a script that can be used to update archlinux. It's goal is that the system is only updated once per week to reduce the temptation of frequent updates.
+**update-system.sh** is a script that can be used to update archlinux. It's goal is that the system is only updated once per week to reduce the temptation of frequent updates.
 
 If executed and it is not Friday it will just cache the new packages with `pacman -Syuw`. When it is the end of week then it will update the whole system this includes updates for
 
@@ -31,8 +31,21 @@ It should be executed with `sudo` and if done so, it will asks how many mirrors 
 
 ### Requirements
 
+#### For `update-mirror`
 Before executing the `update-mirror.sh` script please, insure that the package `pacman-contrib` is installed. To install the package, execute
 
 ```bash
-sudo pacman -S pacman-contrib
+sudo pacman -S --needed  pacman-contrib
 ```
+
+#### For `update-system`
+The **update-arch.sh** script doesn't need any special dependecies. But a AUR-wrapper like [`yay`](https://github.com/Jguer/yay), [`trizen`](https://github.com/trizen/trizen) or [`pamac`](https://gitlab.manjaro.org/applications/pamac) would be useful to update AUR-packages.
+To install them 
+1. follow the links
+2. clone one of these repositories with `git` 
+  1. `git clone https://github.com/Jguer/yay.git`
+  2. `git clone https://github.com/trizen/trizen.git`
+  3. `git clone https://gitlab.manjaro.git/applications/pamac.git`
+3. Then make a package and install it with 
+  `makepkg -si`
+
