@@ -29,7 +29,7 @@ It should be executed with `sudo` and if done so, it will asks how many mirrors 
 + IP-Version 4
 + active mirror status
 
-### Ad scripts to path
+### Add scripts to path
 I generally prefer to use links to the scripts instead of copying them to `PATH`-directories.
 ```bash
 chmod +x update-arch.sh
@@ -40,14 +40,14 @@ sudo ln update-mirrors.sh /usr/bin/update-mirrors
 
 ### Requirements
 
-#### For `update-mirror`
+#### For `update-mirrors.sh`
 Before executing the `update-mirror.sh` script please, insure that the package `pacman-contrib` is installed. To install the package, execute
 
 ```bash
 sudo pacman -S --needed  pacman-contrib
 ```
 
-#### For `update-system`
+#### For `update-system.sh`
 The **update-arch.sh** script doesn't need any special dependecies. But a AUR-wrapper like [`yay`](https://github.com/Jguer/yay), [`trizen`](https://github.com/trizen/trizen) or [`pamac`](https://gitlab.manjaro.org/applications/pamac) would be useful to update AUR-packages.
 To install them 
 1. follow the links
