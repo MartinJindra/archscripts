@@ -52,9 +52,12 @@ The **update-arch.sh** script doesn't need any special dependecies. But a AUR-wr
 To install them 
 1. follow the links
 2. clone one of these repositories with `git` 
-  1. `git clone https://github.com/Jguer/yay.git`
-  2. `git clone https://github.com/trizen/trizen.git`
-  3. `git clone https://gitlab.manjaro.git/applications/pamac.git`
+
+     `git clone https://github.com/Jguer/yay.git`
+
+     `git clone https://github.com/trizen/trizen.git`
+
+     `git clone https://gitlab.manjaro.git/applications/pamac.git`
 3. Then make a package and install it with 
-  `makepkg -si`
+    `makepkg -si`
 
