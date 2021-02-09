@@ -32,10 +32,10 @@ It should be executed with `sudo` and if done so, it will asks how many mirrors 
 ### Add scripts to path
 I generally prefer to use links to the scripts instead of copying them to `PATH`-directories.
 ```bash
-chmod +x update-arch.sh
+chmod +x update-system.sh
 chmod +x update-mirrors.sh
-sudo ln update-system.sh /usr/bin/update-system
-sudo ln update-mirrors.sh /usr/bin/update-mirrors
+sudo ln -sf update-system.sh /usr/bin/update-system
+sudo ln -sf update-mirrors.sh /usr/bin/update-mirrors
 ```
 
 ### Requirements
