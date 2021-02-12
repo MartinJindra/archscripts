@@ -11,40 +11,40 @@ if [ $day == 5 ]; then
 	then
 		echo "Its $(date +"%A"), time to update"
 		# use yay to upgrade packages if installed
-		if command -V yay &> /dev/null;
+		if [ -x "$(command -v yay)" ];
 		then
 			echo Updating Packages
 			yay -Syu
 		# use pamac to upgrade packages if installed
-		elif command -V pamac &> /dev/null;
+		elif [ -x "$(command -v pamac)" ];
 		then
 			echo Updating Packages
 			sudo pamac update -a
 		# use trizen to upgrade packages if installed
-		elif command -V trizen &> /dev/null;
+		elif [ -x "$(command -v trizen)" ];
 		then
 			echo Updating Packages
 			trizen -Syu
 		# use pacman to upgrade packages if installed
-		elif command -V pacman &> /dev/null;
+		elif [ -x "$(command -v pacman)" ]; 
 		then
 			echo Updating Packages
 			sudo pacman -Syu
 		fi
 		# update flatpaks if installed
-		if command -V flatpak &> /dev/null;
+		if [ -x "$(command flatpak)" ];
 		then
 			echo Updating Flatpaks
 			flatpak update
 		fi
 		# update snaps if installed
-		if command -V snap &> /dev/null;
+		if [ -x "$(command snap)" ];
 		then
 			echo Updating Snaps
 			sudo snap refresh
 		fi
 		# clear packages if paccache is installed
-		if command -V paccache &> /dev/null;
+		if [ -x "$(command paccache)" ];
 		then
 			paccache -d
 			read -p 'Want to clean pacman cache? (y/N) ' choice_cache
@@ -55,7 +55,7 @@ if [ $day == 5 ]; then
 			fi
 		fi
 		# clear unused packages if yay is installed
-		if command -V yay &> /dev/null;
+		if [ -x "$(command yay)" ];
 		then
 			read -p 'Want to removing unused dependencies? (y/N) ' choice_dep
 			choice_dep=${choice_dep,,}
@@ -81,7 +81,10 @@ if [ $day == 5 ]; then
 else
 	# just downloads packages
 	# it doesn't install them
-	echo Pakete werden heruntergeladen
-	sudo pacman -Syuw --needed --noconfirm
+	if [ -x "$(command -v pacman)" ];
+	then
+		echo Pakete werden heruntergeladen
+		sudo pacman -Syuw --needed --noconfirm
+	fi
 fi
 
