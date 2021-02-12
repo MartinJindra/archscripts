@@ -20,7 +20,7 @@ else
 		then
 			cp $mirrorlist $mirrorlistbak
 		fi
-		if command -V rankmirrors &> /dev/null;
+		if [ -x "$(command -v rankmirrors )" ];
 		then
 			curl -s 'https://archlinux.org/mirrorlist/?country=all&protocol=https&ip_version=4' | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n $mirrors - > $mirrorlist
 		else
