@@ -3,31 +3,35 @@
 day=$(date '+%u')
 # if today is Friday then update
 # if not just cache the updates
-if [ $day == 5 ]; then
-	read -p 'Want to update the system? (y/N) ' choice_update
+if [ "$day" == 5 ]; then
+	read -rp 'Want to update the system? (y/N) ' choice_update
 	choice_update=${choice_update,,}
 	# update system if user chooses to
 	if [[ $choice_update == 'y' ]];
 	then
 		echo "Its $(date +"%A"), time to update"
-		# use yay to upgrade packages if installed
+		# use yay to upgrade packages if yay is installed
 		if [ -x "$(command -v yay)" ];
 		then
 			echo Updating Packages
 			yay -Syu
-		# use pamac to upgrade packages if installed
+		# use paru to upgrade packages if paru is installed
+		elif [ -x "$(command -v paru)" ];
+		then
+			echo Updating Packages
+			paru -Syu
+		# use pamac to upgrade packages if pamac is installed
 		elif [ -x "$(command -v pamac)" ];
 		then
 			echo Updating Packages
 			sudo pamac update -a
-		# use trizen to upgrade packages if installed
+		# use trizen to upgrade packages if trizen is installed
 		elif [ -x "$(command -v trizen)" ];
 		then
 			echo Updating Packages
 			trizen -Syu
-		# use pacman to upgrade packages if installed
-		elif [ -x "$(command -v pacman)" ]; 
-		then
+		# use pacman to upgrade packages 
+		else 
 			echo Updating Packages
 			sudo pacman -Syu
 		fi
@@ -47,7 +51,7 @@ if [ $day == 5 ]; then
 		if [ -x "$(command paccache)" ];
 		then
 			paccache -d
-			read -p 'Want to clean pacman cache? (y/N) ' choice_cache
+			read -rp 'Want to clean pacman cache? (y/N) ' choice_cache
 			choice_cache=${choice_cache,,}
 			if [[ $choice_cache == 'y' ]]; 
 			then
@@ -57,20 +61,20 @@ if [ $day == 5 ]; then
 		# clear unused packages if yay is installed
 		if [ -x "$(command yay)" ];
 		then
-			read -p 'Want to removing unused dependencies? (y/N) ' choice_dep
+			read -rp 'Want to removing unused dependencies? (y/N) ' choice_dep
 			choice_dep=${choice_dep,,}
-			if [[ choice_dep == 'y' ]];
+			if [[ "$choice_dep" == 'y' ]];
 			then	
 				yay -Yc
 			fi
 		fi
 		# checks if orphan packages exists
-		if [[ "pacman -Qtdq | wc -l" -eq 0 ]];
+		if [[ "$(pacman -Qtdq | wc -l)" -eq 0 ]];
 		then
 			echo "No orphans packages were found"
 		else
 			echo "Packages to clean:"
-			read -p 'Want to remove orphaned packages? (y/N) ' choice_orphend
+			read -rp 'Want to remove orphaned packages? (y/N) ' choice_orphend
 			choice_orphend=${choice_orphend,,}	
 			if [[ $choice_orphend == 'y' ]];
 			then
