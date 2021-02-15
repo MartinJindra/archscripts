@@ -9,7 +9,7 @@
 If executed and it is not Friday it will just cache the new packages with `pacman -Syuw`. When it is the end of week then it will update the whole system this includes updates for
 
 + packages from the synced repositories
-+ packages from the AUR using `yay`, `trizen` or `pamac`
++ packages from the AUR using `yay`, `paru`, `trizen` or `pamac`
 + snaps
 + flatpaks
 
@@ -48,7 +48,7 @@ sudo pacman -S --needed  pacman-contrib
 ```
 
 #### For `update-system.sh`
-The **update-arch.sh** script doesn't need any special dependecies. But a AUR-wrapper like [`yay`](https://github.com/Jguer/yay), [`trizen`](https://github.com/trizen/trizen) or [`pamac`](https://gitlab.manjaro.org/applications/pamac) would be useful to update AUR-packages.
+The **update-arch.sh** script doesn't need any special dependecies. But a AUR-wrapper like [`yay`](https://github.com/Jguer/yay),[`paru`](https://github.com/Morganamilo/paru) , [`trizen`](https://github.com/trizen/trizen) or [`pamac`](https://gitlab.manjaro.org/applications/pamac) would be useful to update AUR-packages.
 To install them 
 1. follow the links
 2. clone one of these repositories with `git` 
