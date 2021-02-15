@@ -30,10 +30,18 @@ It should be executed with `sudo` and if done so, it will asks how many mirrors 
 + active mirror status
 
 ### Add scripts to path
-I generally prefer to use links to the scripts instead of copying them to `PATH`-directories.
+I generally prefer to use symbolic links heading to the scripts instead of copying them to `PATH`-directories.
+
+Make the scripts executable.
+
 ```bash
 chmod +x update-system.sh
 chmod +x update-mirrors.sh
+```
+
+Create symbolic links that link to the scripts.
+
+```bash
 sudo ln -sf update-system.sh /usr/bin/update-system
 sudo ln -sf update-mirrors.sh /usr/bin/update-mirrors
 ```
