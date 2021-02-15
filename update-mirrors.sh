@@ -6,7 +6,7 @@ then
 else
 	mirrorlist=/etc/pacman.d/mirrorlist
 	mirrorlistbak=/etc/pacman.d/mirrorlist.bak
-	read -p 'how many mirrors: 0 for all, -1 for aborting ' mirrors	
+	read -rp 'how many mirrors: 0 for all, -1 for aborting ' mirrors	
 	if [[ $mirrors == -1 ]];
 	then
 		echo Aborting
@@ -22,7 +22,7 @@ else
 		fi
 		if [ -x "$(command -v rankmirrors )" ];
 		then
-			curl -s 'https://archlinux.org/mirrorlist/?country=all&protocol=https&ip_version=4' | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n $mirrors - > $mirrorlist
+			curl -s 'https://archlinux.org/mirrorlist/?country=all&protocol=https&ip_version=4' | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n "$mirrors" - > "$mirrorlist"
 		else
 			echo 'command rankmirrors is not installed'
 		fi
