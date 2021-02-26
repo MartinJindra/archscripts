@@ -4,7 +4,7 @@ day=$(date '+%u')
 # if today is Friday then update
 # if not just cache the updates
 if [ "$day" == 5 ]; then
-	read -rp 'Want to update the system? (y/N) ' choice_update
+	read -rp "$(pacman -Qu | wc -l) are upgradable. Want to update the system? (y/N)" choice_update
 	choice_update=${choice_update,,}
 	# update system if user chooses to
 	if [[ $choice_update == 'y' ]];
