@@ -4,7 +4,7 @@ day=$(date '+%u')
 # if today is Friday then update
 # if not just cache the updates
 if [ "$day" == 5 ]; then
-	read -rp "$(pacman -Qu | wc -l) are upgradable. Want to update the system? (y/N)" choice_update
+	read -rp "$(pacman -Qu | wc -l) are ready to be upgraded. Want to update the system? (y/N) " choice_update
 	choice_update=${choice_update,,}
 	# update system if user chooses to
 	if [[ $choice_update == 'y' ]];
@@ -36,19 +36,19 @@ if [ "$day" == 5 ]; then
 			sudo pacman -Syu
 		fi
 		# update flatpaks if installed
-		if [ -x "$(command flatpak)" ];
+		if [ -x "$(command -v flatpak)" ];
 		then
 			echo Updating Flatpaks
 			flatpak update
 		fi
 		# update snaps if installed
-		if [ -x "$(command snap)" ];
+		if [ -x "$(command -v snap)" ];
 		then
 			echo Updating Snaps
 			sudo snap refresh
 		fi
 		# clear packages if paccache is installed
-		if [ -x "$(command paccache)" ];
+		if [ -x "$(command -v paccache)" ];
 		then
 			paccache -d
 			read -rp 'Want to clean pacman cache? (y/N) ' choice_cache
@@ -59,7 +59,7 @@ if [ "$day" == 5 ]; then
 			fi
 		fi
 		# clear unused packages if yay is installed
-		if [ -x "$(command yay)" ];
+		if [ -x "$(command -v yay)" ];
 		then
 			read -rp 'Want to removing unused dependencies? (y/N) ' choice_dep
 			choice_dep=${choice_dep,,}
