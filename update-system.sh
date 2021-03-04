@@ -55,7 +55,7 @@ if [ "$day" == 5 ]; then
 			choice_cache=${choice_cache,,}
 			if [[ $choice_cache == 'y' ]]; 
 			then
-				paccache -r
+				sudo paccache -r
 			fi
 		fi
 		# checks if orphan packages exists
