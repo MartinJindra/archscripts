@@ -58,16 +58,6 @@ if [ "$day" == 5 ]; then
 				paccache -r
 			fi
 		fi
-		# clear unused packages if yay is installed
-		if [ -x "$(command -v yay)" ];
-		then
-			read -rp 'Want to removing unused dependencies? (y/N) ' choice_dep
-			choice_dep=${choice_dep,,}
-			if [[ "$choice_dep" == 'y' ]];
-			then	
-				yay -Yc
-			fi
-		fi
 		# checks if orphan packages exists
 		if [[ "$(pacman -Qtdq | wc -l)" -eq 0 ]];
 		then
