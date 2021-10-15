@@ -1,10 +1,15 @@
 #!/bin/bash
+if ! [[ -x "$(command -v checkupdates)" ]];
+then
+    echo "Install package pacman-contrib"
+    exit 1
+fi
 # save current week day 
 day=$(date '+%u')
 # if today is Friday then update
 # if not just cache the updates
 if [ "$day" == 5 ]; then
-	read -rp "$(pacman -Qu | wc -l) are ready to be upgraded. Want to update the system? (y/N) " choice_update
+	read -rp "$(checkupdates | wc -l) are ready to be upgraded. Want to update the system? (y/N) " choice_update
 	choice_update=${choice_update,,}
 	# update system if user chooses to
 	if [[ $choice_update == 'y' ]];
@@ -81,4 +86,3 @@ else
 		sudo pacman -Syuw --needed --noconfirm
 	fi
 fi
-
