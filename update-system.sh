@@ -7,10 +7,17 @@ day=$(date '+%u')
 # if not just cache the updates
 ! [ "$day" == 5 ] && exit
 
+upgradable=$(checkupdates | wc -l)
+
 packages() {
+    read -rp "$upgradable are ready to be upgraded. Want to update the system? (y/N) " choice_update && [[ ${choice_update,,} == 'y' ]] || return
+
+    # update system if user chooses to
+    echo "Its $(date +"%A"), time to update"
+
     # use yay to upgrade packages if yay is installed
     [ -x "$(command -v yay)" ] && echo "Updating Packages" && yay -Syu && exit
-		
+
     # use paru to upgrade packages if paru is installed
     [ -x "$(command -v paru)" ] && echo "Updating Packages" && paru -Syu && exit
 
@@ -45,18 +52,13 @@ cache() {
     )
 }
 
-read -rp "$(checkupdates | wc -l) are ready to be upgraded. Want to update the system? (y/N) " choice_update &&
-    [[ ${choice_update,,} == 'y' ]] &&
-    (
-            # update system if user chooses to
-            echo "Its $(date +"%A"), time to update" && packages
-        )
+packages
 
 cache
 
 # just downloads packages
 # it doesn't install them
-[[ -x "$(command -v pacman)" ]] && [[ "$(checkupdates | wc -l)" -gt 0 ]] && (
+[[ -x "$(command -v pacman)" ]] && [[ "$upgradable" -gt 0 ]] && (
     echo "Pakete werden heruntergeladen"
     sudo pacman -Syuw --needed --noconfirm
 )
