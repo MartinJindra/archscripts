@@ -60,5 +60,3 @@ cache
     echo "Pakete werden heruntergeladen"
     sudo pacman -Syuw --needed --noconfirm
 )
-
-
