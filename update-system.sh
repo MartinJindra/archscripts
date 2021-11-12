@@ -30,11 +30,11 @@ packages() {
     # use pacman to upgrade packages
     echo "Updating Packages" && sudo pacman -Syu
 
-	# update flatpaks if flatpak is installed
+    # update flatpaks if flatpak is installed
     [ -x "$(command -v flatpak)" ] && echo Updating Flatpaks && flatpak update
 
-	# update snaps if snap is installed
-	[ -x "$(command -v snap)" ] && echo "Updating Snaps" && sudo snap refresh
+    # update snaps if snap is installed
+    [ -x "$(command -v snap)" ] && echo "Updating Snaps" && sudo snap refresh
 }
 
 cache() {
@@ -44,11 +44,11 @@ cache() {
     read -rp 'Want to clean pacman cache? (y/N) ' choice_cache
     [[ ${choice_cache,,} == 'y' ]] && sudo paccache -r
 
-	# checks if orphan packages exists
-	[[ "$(pacman -Qtdq | wc -l)" -eq 0 ]] && echo "No orphans packages were found" || (
+    # checks if orphan packages exists
+    [[ "$(pacman -Qtdq | wc -l)" -eq 0 ]] && echo "No orphans packages were found" || (
         echo "Packages to clean:"
-		read -rp 'Want to remove orphaned packages? (y/N) ' choice_orphend
-		[[ ${choice_orphend,,} == 'y' ]] && sudo pacman -Rsn "$(pacman -Qtdq)"
+	read -rp 'Want to remove orphaned packages? (y/N) ' choice_orphend
+	[[ ${choice_orphend,,} == 'y' ]] && sudo pacman -Rsn "$(pacman -Qtdq)"
     )
 }
 
