@@ -1,88 +1,64 @@
 #!/bin/bash
-if ! [[ -x "$(command -v checkupdates)" ]];
-then
-    echo "Install package pacman-contrib"
-    exit 1
-fi
-# save current week day 
+! [[ -x "$(command -v checkupdates)" ]] && echo "Install package pacman-contrib" && exit 1
+
+# save current week day
 day=$(date '+%u')
 # if today is Friday then update
 # if not just cache the updates
-if [ "$day" == 5 ]; then
-	read -rp "$(checkupdates | wc -l) are ready to be upgraded. Want to update the system? (y/N) " choice_update
-	choice_update=${choice_update,,}
-	# update system if user chooses to
-	if [[ $choice_update == 'y' ]];
-	then
-		echo "Its $(date +"%A"), time to update"
-		# use yay to upgrade packages if yay is installed
-		if [ -x "$(command -v yay)" ];
-		then
-			echo Updating Packages
-			yay -Syu
-		# use paru to upgrade packages if paru is installed
-		elif [ -x "$(command -v paru)" ];
-		then
-			echo Updating Packages
-			paru -Syu
-		# use pamac to upgrade packages if pamac is installed
-		elif [ -x "$(command -v pamac)" ];
-		then
-			echo Updating Packages
-			sudo pamac update -a
-		# use trizen to upgrade packages if trizen is installed
-		elif [ -x "$(command -v trizen)" ];
-		then
-			echo Updating Packages
-			trizen -Syu
-		# use pacman to upgrade packages 
-		else 
-			echo Updating Packages
-			sudo pacman -Syu
-		fi
-		# update flatpaks if installed
-		if [ -x "$(command -v flatpak)" ];
-		then
-			echo Updating Flatpaks
-			flatpak update
-		fi
-		# update snaps if installed
-		if [ -x "$(command -v snap)" ];
-		then
-			echo Updating Snaps
-			sudo snap refresh
-		fi
-		# clear packages if paccache is installed
-		if [ -x "$(command -v paccache)" ];
-		then
-			paccache -d
-			read -rp 'Want to clean pacman cache? (y/N) ' choice_cache
-			choice_cache=${choice_cache,,}
-			if [[ $choice_cache == 'y' ]]; 
-			then
-				sudo paccache -r
-			fi
-		fi
-		# checks if orphan packages exists
-		if [[ "$(pacman -Qtdq | wc -l)" -eq 0 ]];
-		then
-			echo "No orphans packages were found"
-		else
-			echo "Packages to clean:"
-			read -rp 'Want to remove orphaned packages? (y/N) ' choice_orphend
-			choice_orphend=${choice_orphend,,}	
-			if [[ $choice_orphend == 'y' ]];
-			then
-				sudo pacman -Rsn $(pacman -Qtdq)
-			fi
-		fi
-	fi
-else
-	# just downloads packages
-	# it doesn't install them
-	if [ -x "$(command -v pacman)" ];
-	then
-		echo Pakete werden heruntergeladen
-		sudo pacman -Syuw --needed --noconfirm
-	fi
-fi
+! [ "$day" == 5 ] && exit
+
+packages() {
+    # use yay to upgrade packages if yay is installed
+    [ -x "$(command -v yay)" ] && echo "Updating Packages" && yay -Syu && exit
+		
+    # use paru to upgrade packages if paru is installed
+    [ -x "$(command -v paru)" ] && echo "Updating Packages" && paru -Syu && exit
+
+    # use pamac to upgrade packages if pamac is installed
+    [ -x "$(command -v pamac)" ] && echo "Updating Packages" && sudo pamac update -a && exit
+
+    # use trizen to upgrade packages if trizen is installed
+    [ -x "$(command -v trizen)" ] && echo "Updating Packages" && trizen -Syu && exit
+		
+    # use pacman to upgrade packages
+    echo "Updating Packages" && sudo pacman -Syu
+
+	# update flatpaks if flatpak is installed
+    [ -x "$(command -v flatpak)" ] && echo Updating Flatpaks && flatpak update
+
+	# update snaps if snap is installed
+	[ -x "$(command -v snap)" ] && echo "Updating Snaps" && sudo snap refresh
+}
+
+cache() {
+    # clear packages if paccache is installed
+    [ -x "$(command -v paccache)" ] && paccache -d || return
+
+    read -rp 'Want to clean pacman cache? (y/N) ' choice_cache
+    [[ ${choice_cache,,} == 'y' ]] && sudo paccache -r
+
+	# checks if orphan packages exists
+	[[ "$(pacman -Qtdq | wc -l)" -eq 0 ]] && echo "No orphans packages were found" || (
+        echo "Packages to clean:"
+		read -rp 'Want to remove orphaned packages? (y/N) ' choice_orphend
+		[[ ${choice_orphend,,} == 'y' ]] && sudo pacman -Rsn $(pacman -Qtdq)
+    )
+}
+
+read -rp "$(checkupdates | wc -l) are ready to be upgraded. Want to update the system? (y/N) " choice_update &&
+    [[ ${choice_update,,} == 'y' ]] &&
+    (
+            # update system if user chooses to
+            echo "Its $(date +"%A"), time to update" && packages
+        )
+
+cache
+
+# just downloads packages
+# it doesn't install them
+[ -x "$(command -v pacman)" ] && (
+    echo "Pakete werden heruntergeladen"
+    sudo pacman -Syuw --needed --noconfirm
+)
+
+
