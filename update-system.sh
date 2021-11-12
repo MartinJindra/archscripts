@@ -10,7 +10,9 @@ day=$(date '+%u')
 upgradable=$(checkupdates | wc -l)
 
 packages() {
-    read -rp "$upgradable are ready to be upgraded. Want to update the system? (y/N) " choice_update && [[ ${choice_update,,} == 'y' ]] || return
+
+    if [[ "$upgradable" -eq 0 ]]; then echo "There are currently no package updates."; return
+    else read -rp "$upgradable are ready to be upgraded. Want to update the system? (y/N) " choice_update && [[ ${choice_update,,} == 'y' ]]; fi
 
     # update system if user chooses to
     echo "Its $(date +"%A"), time to update"
