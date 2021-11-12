@@ -41,7 +41,7 @@ cache() {
 	[[ "$(pacman -Qtdq | wc -l)" -eq 0 ]] && echo "No orphans packages were found" || (
         echo "Packages to clean:"
 		read -rp 'Want to remove orphaned packages? (y/N) ' choice_orphend
-		[[ ${choice_orphend,,} == 'y' ]] && sudo pacman -Rsn $(pacman -Qtdq)
+		[[ ${choice_orphend,,} == 'y' ]] && sudo pacman -Rsn "$(pacman -Qtdq)"
     )
 }
 
@@ -56,7 +56,7 @@ cache
 
 # just downloads packages
 # it doesn't install them
-[ -x "$(command -v pacman)" ] && (
+[[ -x "$(command -v pacman)" ]] && [[ "$(checkupdates | wc -l)" -gt 0 ]] && (
     echo "Pakete werden heruntergeladen"
     sudo pacman -Syuw --needed --noconfirm
 )
