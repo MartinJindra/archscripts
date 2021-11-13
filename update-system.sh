@@ -3,9 +3,6 @@
 
 # save current week day
 day=$(date '+%u')
-# if today is Friday then update
-# if not just cache the updates
-! [ "$day" == 5 ] && exit
 
 upgradable=$(checkupdates | wc -l)
 
@@ -54,13 +51,17 @@ cache() {
     )
 }
 
-packages
-
-cache
-
-# just downloads packages
-# it doesn't install them
-[[ -x "$(command -v pacman)" ]] && [[ "$upgradable" -gt 0 ]] && (
-    echo "Pakete werden heruntergeladen"
-    sudo pacman -Syuw --needed --noconfirm
-)
+# if today is Friday then update
+# if not just cache the updates
+if [ "$day" == 5 ];
+then
+    packages
+    cache
+else
+    # just downloads packages
+    # it doesn't install them
+    [[ -x "$(command -v pacman)" ]] && [[ "$upgradable" -gt 0 ]] && (
+        echo "Pakete werden heruntergeladen"
+        sudo pacman -Syuw --needed --noconfirm
+    )
+fi
