@@ -14,20 +14,20 @@ packages() {
     # update system if user chooses to
     echo "Its $(date +"%A"), time to update"
 
-    # use yay to upgrade packages if yay is installed
-    [ -x "$(command -v yay)" ] && echo "Updating Packages" && yay -Syu && exit
-
     # use paru to upgrade packages if paru is installed
-    [ -x "$(command -v paru)" ] && echo "Updating Packages" && paru -Syu && exit
+    if [ -x "$(command -v paru)" ]; then echo "Updating Packages" && paru -Syu;
+
+    # use yay to upgrade packages if yay is installed
+    elif [ -x "$(command -v yay)" ]; then echo "Updating Packages" && yay -Syu;
 
     # use pamac to upgrade packages if pamac is installed
-    [ -x "$(command -v pamac)" ] && echo "Updating Packages" && sudo pamac update -a && exit
+    elif [ -x "$(command -v pamac)" ]; then echo "Updating Packages" && sudo pamac update -a;
 
     # use trizen to upgrade packages if trizen is installed
-    [ -x "$(command -v trizen)" ] && echo "Updating Packages" && trizen -Syu && exit
-		
+    elif [ -x "$(command -v trizen)" ]; then echo "Updating Packages" && trizen -Syu;
+
     # use pacman to upgrade packages
-    echo "Updating Packages" && sudo pacman -Syu
+    else echo "Updating Packages" && sudo pacman -Syu; fi
 
     # update flatpaks if flatpak is installed
     [ -x "$(command -v flatpak)" ] && echo Updating Flatpaks && flatpak update
@@ -44,11 +44,12 @@ cache() {
     [[ ${choice_cache,,} == 'y' ]] && sudo paccache -r
 
     # checks if orphan packages exists
-    [[ "$(pacman -Qtdq | wc -l)" -eq 0 ]] && echo "No orphans packages were found" || (
+    if [[ "$(pacman -Qtdq | wc -l)" -eq 0 ]]; then echo "No orphans packages were found";
+    else
         echo "Packages to clean:"
-	read -rp 'Want to remove orphaned packages? (y/N) ' choice_orphend
-	[[ ${choice_orphend,,} == 'y' ]] && sudo pacman -Rsn "$(pacman -Qtdq)"
-    )
+        read -rp 'Want to remove orphaned packages? (y/N) ' choice_orphend
+        [[ ${choice_orphend,,} == 'y' ]] && sudo pacman -Rsn "$(pacman -Qtdq)"
+    fi
 }
 
 # if today is Friday then update
@@ -65,3 +66,4 @@ else
         sudo pacman -Syuw --needed --noconfirm
     )
 fi
+
