@@ -30,7 +30,7 @@ packages() {
     else echo "Updating Packages" && sudo pacman -Syu; fi
 
     # update flatpaks if flatpak is installed
-    [ -x "$(command -v flatpak)" ] && echo Updating Flatpaks && flatpak update
+    [ -x "$(command -v flatpak)" ] && echo "Updating Flatpaks" && flatpak update
 
     # update snaps if snap is installed
     [ -x "$(command -v snap)" ] && echo "Updating Snaps" && sudo snap refresh
