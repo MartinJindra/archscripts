@@ -35,8 +35,8 @@ I generally prefer to use symbolic links heading to the scripts instead of copyi
 Create symbolic links that link to the scripts.
 
 ```bash
-sudo ln -sf "$(pwd)/update-system.sh" /usr/local/sbin/update-system
-sudo ln -sf "$(pwd)/update-mirrors.sh" /usr/local/sbin/update-mirrors
+ln -sf "$(pwd)/update-system.sh" ~/.local/bin/update-system
+ln -sf "$(pwd)/update-mirrors.sh" ~/.local/bin//update-mirrors
 ```
 
 ### Requirements
